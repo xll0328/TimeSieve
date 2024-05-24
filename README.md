@@ -2,7 +2,7 @@
 
 [Ninghui Feng*](https://github.com/feng1201), [Songning Lai*](https://github.com/xll0328/), Zhenxiao Yin, Fobao Zhou, Hang Zhao†
 
-[![Website shields.io](https://img.shields.io/website?url=http%3A//poco.is.tue.mpg.de)](https://NA) [![YouTube Badge](https://img.shields.io/badge/YouTube-Watch-red?style=flat-square&logo=youtube)](https://NA)  [![arXiv](https://img.shields.io/badge/arXiv-2405.01461-00ff00.svg)](https://arxiv.org/NA)  
+[![Website shields.io](https://img.shields.io/website?url=http%3A//poco.is.tue.mpg.de)](https://NA) [![YouTube Badge](https://img.shields.io/badge/YouTube-Watch-red?style=flat-square&logo=youtube)](https://NA)  [![arXiv](https://img.shields.io/badge/arXiv-2405.0000-00ff00.svg)](https://arxiv.org/NA)  
 
 ## Abstract
 In this paper, we present TimeSieve, a pioneering time series forecasting model that innovatively applies Information Bottleneck Theory from an information-theoretic perspective to analyze and interpret time series data. TimeSieve integrates wavelet transformations to adeptly decompose the input data into multi-scale components, enhancing the model's ability to handle complex datasets. By employing an IB module, TimeSieve meticulously filters and retains only the most pivotal information, significantly reducing computational overhead and markedly improving generalization across diverse contexts. This methodological synergy addresses the perennial challenges in time series analysis, such as the efficient capture of abrupt temporal changes and the reduction of noise interference. The resulting framework not only streamlines the forecasting process but also bolsters its performance and applicability in real-world scenarios.
