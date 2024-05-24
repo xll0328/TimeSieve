@@ -20,12 +20,11 @@ In this study, we propose a novel time series forecasting model named TimeSieve.
 
 To effectively capture comprehensive feature information, we employ the Wavelet Decomposition Block (WDB). The WDB decomposes time series data into different frequency components, effectively extracting multi-scale information. Specifically, the wavelet transform can be represented by the following equations:
 
-\begin{equation}
-c\hat A = IFCB(cA)
-\end{equation}
-\begin{equation}
-c\hat D = IFCB(cD)
-\end{equation}
+
+$c\hat A = IFCB(cA)$
+
+$c\hat D = IFCB(cD)$
+
 where $c\hat A $ and $c\hat D $ represents the filtered coefficients $cA$ and $cD$.
 
 After filtering with the IFCB, we apply the Wavelet Reconstruction Block (WRB) to reconstruct the processed data back into the time domain. This step ensures that the features at different scales are fully utilized. Finally, we use a Multi-Layer Perceptron (MLP) as the predictor to make the final forecast on the processed time series data. The equations for the prediction step are as follows:
