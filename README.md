@@ -141,15 +141,6 @@ We appreciate helps from :
 
 
 If you find this document useful for your research, please consider citing the following repository, and our full paper and code will coming soon (2024.06):
-
-@misc{githubrepo,
-  author       = "{GitHub Username}",
-  title        = "{Repository Name}",
-  howpublished = "{GitHub repository}",
-  note         = "{URL: \url{https://github.com/{username}/{repository}}}",
-  year         = {Year},
-}
-
 ```bibtex
 @misc{TimeSieve_repo,
   author       = "{Ninghui Feng and Songning Lai and Zhenxiao Yin and Fobao Zhou and Hang Zhao}",
