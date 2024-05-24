@@ -25,14 +25,14 @@ $c\hat A = IFCB(cA)$
 
 $c\hat D = IFCB(cD)$
 
-where $c\hat A $ and $c\hat D $ represents the filtered coefficients $cA$ and $cD$.
+where $c\hat A$ and $c\hat D$ represents the filtered coefficients $cA$ and $cD$.
 
 After filtering with the IFCB, we apply the Wavelet Reconstruction Block (WRB) to reconstruct the processed data back into the time domain. This step ensures that the features at different scales are fully utilized. Finally, we use a Multi-Layer Perceptron (MLP) as the predictor to make the final forecast on the processed time series data. The equations for the prediction step are as follows:
-\begin{equation}
-Y = MLP(WRB([c\hat A, c\hat D]))
-\end{equation}
 
-The overall architecture of the TimeSieve model is illustrated in Figure 1. The TimeSieve model leverages the combination of wavelet transform and Information Bottleneck methods to effectively handle the multi-scale characteristics and noise present in time series data, thereby improving the model's predictive performance and robustness. This approach is motivated by the need to optimize information flow and enhance feature extraction, ensuring that our model can make accurate and reliable predictions across various applications.
+$Y = MLP(WRB([c\hat A, c\hat D]))$
+
+
+The TimeSieve model leverages the combination of wavelet transform and Information Bottleneck methods to effectively handle the multi-scale characteristics and noise present in time series data, thereby improving the model's predictive performance and robustness. This approach is motivated by the need to optimize information flow and enhance feature extraction, ensuring that our model can make accurate and reliable predictions across various applications.
 
 **WDB and WRB**. 
 
@@ -40,16 +40,11 @@ The overall architecture of the TimeSieve model is illustrated in Figure 1. The 
 
 **Final Loss Function**.
 
-\begin{equation}
-\begin{aligned}
-\text{loss} &= \text{loss}_o + \text{loss}_{IB} \\
-            &= \text{loss}_o + D_{KL}[\mathcal{N}(\mu_z, \Sigma_z) \,||\, \mathcal{N}(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]
-\end{aligned}
-\end{equation}
-Where 
-\(\text{loss}_o\)
-  is the original loss, typically representing the error in regression predictions, and 
-\(\text{loss}_{IB}\)is the information bottleneck loss.
+
+$\text{loss} &= \text{loss}_o + \text{loss}_{IB} \\
+            &= \text{loss}_o + D_{KL}[\mathcal{N}(\mu_z, \Sigma_z) \,||\, \mathcal{N}(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]$
+            
+where $(\text{loss}_o)$ is the original loss, typically representing the error in regression predictions, and $(\text{loss}_{IB})$ is the information bottleneck loss.
     
 ## How to Use the Code
 
