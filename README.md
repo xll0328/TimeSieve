@@ -43,7 +43,7 @@ The TimeSieve model leverages the combination of wavelet transform and Informati
 $$
 \begin{aligned}
 \ell &=  \ell_{o} +  \ell_{IB}\\
-\ell_{o} +  D_{KL}[\aleph(\mu_z, \Sigma_z) \,||\, \aleph(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]
+&=  \ell_{o} +  D_{KL}[\aleph(\mu_z, \Sigma_z) \,||\, \aleph(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]
 \end{aligned}
 $$
 
