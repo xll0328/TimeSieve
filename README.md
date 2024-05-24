@@ -40,11 +40,10 @@ The TimeSieve model leverages the combination of wavelet transform and Informati
 
 **Final Loss Function**.
 
+$\mathcal{L} &=  \mathcal{L}_{o} +  \mathcal{L}_{IB}\\
+\mathcal{L}_{o} +  D_{KL}[\mathcal{N}(\mu_z, \Sigma_z) \,||\, \mathcal{N}(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]$
 
-$\text{loss} &= \text{loss}_o + \text{loss}_{IB} \\
-            &= \text{loss}_o + D_{KL}[\mathcal{N}(\mu_z, \Sigma_z) \,||\, \mathcal{N}(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]$
-            
-where $(\text{loss}_o)$ is the original loss, typically representing the error in regression predictions, and $(\text{loss}_{IB})$ is the information bottleneck loss.
+where $\mathcal{L}_{o}$ is the original loss, typically representing the error in regression predictions, and $\mathcal{L}_{IB}$ is the information bottleneck loss.
     
 ## How to Use the Code
 
