@@ -18,7 +18,7 @@ Existing models often require the introduction of additional parameters to captu
 ## Our Approach TimeSieve
 
 <p align="center">
-  <img src="./MODEL.png" alt="Overview of the TimeSieve Framework. The upper part illustrates the overall architecture of TimeSieve, which consists of the Wavelet Decomposition Block (WDB), Wavelet Reconstruction Block (WRB), Information Fusion and Compression Block (IFCB), and the prediction. The input time series data, $T \times C$, is decomposed by WDB into coefficients $cA$ and $cD$, which are processed by IFCB. The WRB then reconstructs the data, followed by the predictor generating the corresponding forecast steps.">
+  <img src="./model.png" alt="Overview of the TimeSieve Framework. The upper part illustrates the overall architecture of TimeSieve, which consists of the Wavelet Decomposition Block (WDB), Wavelet Reconstruction Block (WRB), Information Fusion and Compression Block (IFCB), and the prediction. The input time series data, $T \times C$, is decomposed by WDB into coefficients $cA$ and $cD$, which are processed by IFCB. The WRB then reconstructs the data, followed by the predictor generating the corresponding forecast steps.">
 </p>
 
 In our study, we propose a novel time series forecasting model named **TimeSieve**. This model integrates the Information Filtering and Compression Block (IFCB) with wavelet transform technology to enhance the accuracy of time series predictions. 
@@ -58,13 +58,13 @@ $cA = \int x(t) \phi(t) dt$
 
 $cD = \int x(t) \psi(t) dt$
 
-where \( \phi(t) \) and \( \psi(t) \) are the scaling function and wavelet function, respectively, defined as follows:
+where $\( \phi(t) \)$ and $\( \psi(t) \)$ are the scaling function and wavelet function, respectively, defined as follows:
 
 $\phi(x) = \sum_{k=0}^{N-1} a_k \phi(2u - k),$
 
 $\psi(x) = \sum_{k=0}^{M-1} b_k \phi(2u - k),$
 
-In the case of db1 wavelet transform, \( \phi(t) \) represents the low-pass filter, capturing the smooth, approximate part of the signal, and \( \psi(t) \) represents the high-pass filter, capturing the detailed, high-frequency part of the signal. Here, \( a_k \) and \( b_k \) are the filter coefficients for the scaling and wavelet functions, respectively, \( u \) is the variable over which the functions are defined, and \( k \) is the index of the coefficients.
+In the case of db1 wavelet transform, $\( \phi(t) \)$ represents the low-pass filter, capturing the smooth, approximate part of the signal, and $\( \psi(t) \)$ represents the high-pass filter, capturing the detailed, high-frequency part of the signal. Here, $\( a_k \)$ and $\( b_k \)$ are the filter coefficients for the scaling and wavelet functions, respectively, $\( u \)$ is the variable over which the functions are defined, and $\( k \)$ is the index of the coefficients.
 
 This decomposition allows the model to capture different characteristics of the data at various levels, thereby optimizing the understanding and prediction of time series dynamics, particularly in identifying local features within the series.
 
@@ -72,12 +72,12 @@ This decomposition allows the model to capture different characteristics of the 
 
 $\hat{x}(t) = \sum c\hat{A} \phi (t) + \sum c\hat{D} \psi (t)$
 
-where \(c\hat{A} \) and \(c\hat{D} \) are the filtered approximation and detail coefficients, respectively. Finally, the reconstructed time series is passed through a MLP for final prediction.
+where $\(c\hat{A} \)$ and $\(c\hat{D} \)$ are the filtered approximation and detail coefficients, respectively. Finally, the reconstructed time series is passed through a MLP for final prediction.
 
 
 ### IFCB
 
-Motivated by the need to effectively filter out redundant features while retaining critical information, we introduce the Information Filtering and Compression Block (IFCB), inspired by the information bottleneck principle. In this section, we process the detail coefficients \(cD\) and approximation coefficients \(cA\) from the wavelet transform of the time series data, for convenience in subsequent explanations, we define $cI \in (cA,cD)$  to collectively represent $cA$ and $cD$.  Additionally, We use \( c\hat{I} \), where \( I \) is in the range \([A, D]\). to represent \(c\hat{A} \) and \(c\hat{D} \), the filtered versions of \(cA\) and \(cD\). Initially, we define the input to the IFCB as \(cI \in \mathbb{R}^{T/2 \times C}\) and the output to the IFCB as \(c\hat{I} \in \mathbb{R}^{T/2 \times C}\).
+Motivated by the need to effectively filter out redundant features while retaining critical information, we introduce the Information Filtering and Compression Block (IFCB), inspired by the information bottleneck principle. In this section, we process the detail coefficients $\(cD\)$ and approximation coefficients \(cA\) from the wavelet transform of the time series data, for convenience in subsequent explanations, we define $cI \in (cA,cD)$  to collectively represent $cA$ and $cD$.  Additionally, We use \( c\hat{I} \), where \( I \) is in the range \([A, D]\). to represent \(c\hat{A} \) and \(c\hat{D} \), the filtered versions of \(cA\) and \(cD\). Initially, we define the input to the IFCB as \(cI \in \mathbb{R}^{T/2 \times C}\) and the output to the IFCB as \(c\hat{I} \in \mathbb{R}^{T/2 \times C}\).
 
 In our model, both \(cI\) and \(c\hat I\) are treated as random variables with a joint distribution \(p(i, \hat i)\). The mutual information between them, denoted as \(I(cI; c\hat I)\), quantifies the amount of information shared by \(cI\) and \(c\hat I\) (More details you can see in Appendix \ref{MI}). It is defined as:
 
