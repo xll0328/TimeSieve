@@ -81,7 +81,7 @@ Motivated by the need to effectively filter out redundant features while retaini
 
 In our model, both $\(cI\)$ and $\(c\hat I\)$ are treated as random variables with a joint distribution $\(p(i, \hat i)\)$. The mutual information between them, denoted as $\(I(cI; c\hat I)\)$, quantifies the amount of information shared by $\(cI\)$ and $\(c\hat I\)$. It is defined as:
 
-$1(cI; c\hat I)&=D_{kL}[p(i, \hat i)\|p(i)p(\hat i)]$
+$1(cI; c\hat I)=D_{kL}[p(i, \hat i)\|p(i)p(\hat i)]$
 
 We define the intermediate hidden layer random variable $\(Z\)$. Following the principles of a Markov chain where $\(cI \rightarrow Z \rightarrow c \hat I\)$, the mutual information satisfies $\(I(cI; Z) \geq I(cI; c \hat I)\)$. Although there is an inevitable information loss in the transmission to the middle layer $\(Z\)$, the key is that $\(Z\)$ retains the most critical information for predicting $\(c \hat I\)$ while filtering out irrelevant features.
 
