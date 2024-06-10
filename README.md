@@ -2,7 +2,7 @@
 
 [Ninghui Feng*](https://github.com/feng1201), [Songning Lai*](https://github.com/xll0328/), Fobao Zhou, Zhenxiao Yin, Hang Zhao†
 
-[![Website shields.io](https://img.shields.io/website?url=http%3A//poco.is.tue.mpg.de)](https://NA) [![YouTube Badge](https://img.shields.io/badge/YouTube-Watch-red?style=flat-square&logo=youtube)](https://NA)  [![arXiv](https://img.shields.io/badge/arXiv-0000.0000-00ff00.svg)](https://arxiv.org/NA)  
+[![Website shields.io](https://img.shields.io/website?url=http%3A//poco.is.tue.mpg.de)](https://NA) [![YouTube Badge](https://img.shields.io/badge/YouTube-Watch-red?style=flat-square&logo=youtube)](https://NA)  [![arXiv](https://img.shields.io/badge/arXiv-2406.05036-00ff00.svg)](https://arxiv.org/2406.05036)  
 
 ## Abstract
 Time series forecasting has become an increasingly popular research area due to its critical applications in various real-world domains such as traffic management, weather prediction, and financial analysis. Despite significant advancements, existing models face notable challenges, including the necessity of manual hyperparameter tuning for different datasets, and difficulty in effectively distinguishing signal from redundant features in data characterized by strong seasonality. These issues hinder the generalization and practical application of time series forecasting models. To solve this issues, we propose an innovative time series forecasting model - **TimeSieve** designed to address these challenges. Our approach employs wavelet transforms to preprocess time series data, effectively capturing multi-scale features without the need for additional parameters or manual hyperparameter tuning. Additionally, we introduce the information bottleneck theory that filters out redundant features from both detail and approximation coefficients, retaining only the most predictive information. This combination reduces significantly improves the model's accuracy. Extensive experiments demonstrate that our model outperforms existing state-of-the-art methods on 70% of the datasets, achieving higher predictive accuracy and better generalization across diverse datasets. Our results validate the effectiveness of our approach in addressing the key challenges in time series forecasting, paving the way for more reliable and efficient predictive models in practical applications.
@@ -77,48 +77,48 @@ where $\(c\hat{A} \)$ and $\(c\hat{D} \)$ are the filtered approximation and det
 
 ### IFCB
 
-Motivated by the need to effectively filter out redundant features while retaining critical information, we introduce the Information Filtering and Compression Block (IFCB), inspired by the information bottleneck principle. In this section, we process the detail coefficients $\(cD\)$ and approximation coefficients \(cA\) from the wavelet transform of the time series data, for convenience in subsequent explanations, we define $cI \in (cA,cD)$  to collectively represent $cA$ and $cD$.  Additionally, We use \( c\hat{I} \), where \( I \) is in the range \([A, D]\). to represent \(c\hat{A} \) and \(c\hat{D} \), the filtered versions of \(cA\) and \(cD\). Initially, we define the input to the IFCB as \(cI \in \mathbb{R}^{T/2 \times C}\) and the output to the IFCB as \(c\hat{I} \in \mathbb{R}^{T/2 \times C}\).
+Motivated by the need to effectively filter out redundant features while retaining critical information, we introduce the Information Filtering and Compression Block (IFCB), inspired by the information bottleneck principle. In this section, we process the detail coefficients $\(cD\)$ and approximation coefficients $\(cA\)$ from the wavelet transform of the time series data, for convenience in subsequent explanations, we define $cI \in (cA,cD)$  to collectively represent $cA$ and $cD$.  Additionally, We use $(c\hat{I})$, where $\( I \)$ is in the range $\([A, D]\)$. to represent $\(c\hat{A} \)$ and $\(c\hat{D} \)$, the filtered versions of $\(cA\)$ and $\(cD\)$. Initially, we define the input to the IFCB as $\(cI \in \mathbb{R}^{T/2 \times C}\)$ and the output to the IFCB as $\(c\hat{I} \in \mathbb{R}^{T/2 \times C}\)$.
 
-In our model, both \(cI\) and \(c\hat I\) are treated as random variables with a joint distribution \(p(i, \hat i)\). The mutual information between them, denoted as \(I(cI; c\hat I)\), quantifies the amount of information shared by \(cI\) and \(c\hat I\) (More details you can see in Appendix \ref{MI}). It is defined as:
+In our model, both $\(cI\)$ and $\(c\hat I\)$ are treated as random variables with a joint distribution $\(p(i, \hat i)\)$. The mutual information between them, denoted as $\(I(cI; c\hat I)\)$, quantifies the amount of information shared by $\(cI\)$ and $\(c\hat I\)$. It is defined as:
 
 $1(cI; c\hat I)&=D_{kL}[p(i, \hat i)\|p(i)p(\hat i)]$
 
-We define the intermediate hidden layer random variable \(Z\). Following the principles of a Markov chain where \(cI \rightarrow Z \rightarrow c \hat I\), the mutual information satisfies \(I(cI; Z) \geq I(cI; c \hat I)\) (More details see in Appendix \ref{MCT}). Although there is an inevitable information loss in the transmission to the middle layer \(Z\), the key is that \(Z\) retains the most critical information for predicting \(c \hat I\) while filtering out irrelevant features.
+We define the intermediate hidden layer random variable $\(Z\)$. Following the principles of a Markov chain where $\(cI \rightarrow Z \rightarrow c \hat I\)$, the mutual information satisfies $\(I(cI; Z) \geq I(cI; c \hat I)\)$. Although there is an inevitable information loss in the transmission to the middle layer $\(Z\)$, the key is that $\(Z\)$ retains the most critical information for predicting $\(c \hat I\)$ while filtering out irrelevant features.
 
-This allows us to define the objective of IFCB, which is to maximize the mutual information between \(Z\) and \(c \hat I\) while minimizing the information between \(Z\) and \(cI\).
+This allows us to define the objective of IFCB, which is to maximize the mutual information between $\(Z\)$ and $\(c \hat I\)$ while minimizing the information between $\(Z\)$ and $\(cI\)$.
 
 $\min \{I(cI; Z) - \beta I(Z; c \hat I)\}$
 
-where \(\beta\) is a trade-off parameter that determines the weight of the minimal information constraint in the optimization process.
+where $\(\beta\)$ is a trade-off parameter that determines the weight of the minimal information constraint in the optimization process.
 
 The optimization is carried out using a deep neural network, which is designed to minimize the above objective by adjusting the network weights and biases through backpropagation and suitable regularization techniques.
 
-Optimization is then performed using a deep neural network. Assuming \(p(z|i)\)  follows a Gaussian distribution, we can derive the following:
+Optimization is then performed using a deep neural network. Assuming $\(p(z|i)\)$  follows a Gaussian distribution, we can derive the following:
 
 $$
 \begin{aligned}p(z|i) &= \mathcal{N}(\mu(i;\theta_\mu), \Sigma(i;\theta_\Sigma)) \\
          &= \mathcal{N}(\mu_z, \Sigma_z)\end{aligned}
 $$
 
-where \( \theta_\mu\)  and \(\theta_\Sigma \)  are the parameters of the networks that are optimized during training. 
+where $\( \theta_\mu\)$  and $\(\theta_\Sigma \)$  are the parameters of the networks that are optimized during training. 
 
 Parameter updates pose a challenge due to the stochastic nature of the gradient calculations. To address this, the reparameterization trick is introduced. The formula is given as:
 
 $z=\mu_z+\Sigma_z\times\epsilon$
 
-where \(\epsilon \)  is sampled from a standard Gaussian distribution.
+where $\(\epsilon \)$  is sampled from a standard Gaussian distribution.
 
-Given that the study focuses on a regression task, we define the conditional probability \(q(\hat i|z)\) as follows:
+Given that the study focuses on a regression task, we define the conditional probability $\(q(\hat i|z)\)$ as follows:
 
 $q(\hat i|z)=e^{-||\hat i-D(z;\theta_c)||}+C$
 
-where \(D\) is a decoder function parameterized by \(\theta_c\), and \(C\) is a constant. This formulation measures the fit of the model's predictions by capturing the deviation of the predicted output \(\hat i\) from the output of the decoder.
+where $\(D\)$ is a decoder function parameterized by $\(\theta_c\)$, and $\(C\)$ is a constant. This formulation measures the fit of the model's predictions by capturing the deviation of the predicted output $\(\hat i\)$ from the output of the decoder.
 
 We now specify the model's loss function. This function is crucial for training the model to minimize prediction errors and optimize the distribution parameters effectively. The loss is composed of the original loss component and the IFCB loss, as shown below:
 
 
 $$
-\begin{aligned}
+\begin{aligned}4
 \ell &=  \ell_{o} +  \ell_{IB}\\
 &=  \ell_{o} +  D_{KL}[\aleph(\mu_z, \Sigma_z) \,||\, \aleph(0, I)] + D_{KL}[p(z) \,||\, p(z|i)]
 \end{aligned}
@@ -214,7 +214,7 @@ We appreciate helps from :
 -->
 
 
-If you find this document useful for your research, please consider citing the following repository, and our full paper and code will coming soon (2024.06):
+If you find this document useful for your research, please consider citing the following repository and paper:
 ```bibtex
 @misc{TimeSieve_repo,
   author       = "{Ninghui Feng and Songning Lai and Zhenxiao Yin and Fobao Zhou and Hang Zhao}",
@@ -222,6 +222,15 @@ If you find this document useful for your research, please consider citing the f
   howpublished = "{GitHub repository}",
   note         = "{URL: \url{https://github.com/xll0328/TimeSieve/}}",
   year         = {2024},
+}
+
+@misc{feng2024timesieve,
+      title={TimeSieve: Extracting Temporal Dynamics through Information Bottlenecks}, 
+      author={Ninghui Feng and Songning Lai and Fobao Zhou and Zhenxiao Yin and Hang Zhao},
+      year={2024},
+      eprint={2406.05036},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
 
